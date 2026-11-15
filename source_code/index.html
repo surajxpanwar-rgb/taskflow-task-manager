@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TaskFlow – Task Management</title>
+<meta name="description" content="A focused task manager. Add, search, filter and track tasks.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='9'%20fill='%2319301f'/%3E%3Cpath%20d='M9%2016.5l4.5%204.5L23%2011.5'%20fill='none'%20stroke='%23e3e9de'%20stroke-width='2.6'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Figtree:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <a class="brand" href="./">Task<span>Flow</span></a>
+    <nav class="nav" aria-label="Filter by status">
+      <button class="navb" type="button" data-status="all"><span>All tasks</span><b id="nAll">0</b></button>
+      <button class="navb" type="button" data-status="pending"><span>Pending</span><b id="nPending">0</b></button>
+      <button class="navb" type="button" data-status="completed"><span>Completed</span><b id="nDone">0</b></button>
+      <button class="navb over" type="button" data-status="overdue"><span>Overdue</span><b id="nOver">0</b></button>
+    </nav>
+    <div class="chips" role="group" aria-label="Filter by priority">
+      <button class="chip" type="button" data-prio="all">Any priority</button>
+      <button class="chip high" type="button" data-prio="high">High</button>
+      <button class="chip medium" type="button" data-prio="medium">Medium</button>
+      <button class="chip low" type="button" data-prio="low">Low</button>
+    </div>
+    <label class="sortbox"><span>Sort by</span>
+      <select id="sort"><option value="created-desc">Newest first</option><option value="created-asc">Oldest first</option><option value="due-asc">Due soonest</option><option value="due-desc">Due latest</option><option value="prio">Priority</option><option value="title">Title A–Z</option></select></label>
+    <p class="note">Saved in this browser only.</p>
+  </aside>
+
+  <main class="work">
+    <header class="head">
+      <h1 id="headline">Your tasks</h1>
+      <label class="search"><span class="sr">Search tasks</span>
+        <input id="q" type="search" placeholder="Search title or description" autocomplete="off"></label>
+      <div class="progress"><div class="bar" role="progressbar" aria-label="Completed share" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="bar"></i></div><span id="pct">0% completed</span></div>
+    </header>
+
+    <form class="composer" id="form" novalidate>
+      <div class="c-head">
+        <h2 id="formTitle">Add a task</h2>
+        <button class="link" type="button" id="cancelEdit" hidden>Cancel edit</button>
+        <button class="link sheet-x" type="button" data-sheet-close>Close</button>
+      </div>
+      <div class="c-grid">
+        <div class="f f-title"><label for="title">Title</label><input id="title" maxlength="80" autocomplete="off" placeholder="What needs doing?"><p class="err" id="eTitle" role="alert"></p></div>
+        <div class="f f-desc"><label for="desc">Description (optional)</label><input id="desc" maxlength="300" autocomplete="off" placeholder="Add a detail"><p class="err" id="eDesc" role="alert"></p></div>
+        <div class="f f-prio"><label for="prio">Priority</label><select id="prio"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></div>
+        <div class="f f-due"><label for="due">Due date</label><input id="due" type="date"><p class="err" id="eDue" role="alert"></p></div>
+        <button class="btn btn-ink" type="submit" id="saveBtn">Add task</button>
+      </div>
+    </form>
+
+    <div class="scroll">
+      <ul class="list" id="list"></ul>
+      <div class="empty" id="empty" hidden></div>
+    </div>
+  </main>
+</div>
+
+<button class="fab" id="fab" type="button" aria-label="Add a task">+</button>
+<div class="scrim"></div>
+
+<dialog id="delDlg" aria-labelledby="delTitle">
+  <h2 id="delTitle">Delete this task?</h2>
+  <p id="delText" class="muted"></p>
+  <div class="actions">
+    <button class="btn" type="button" data-close="delDlg">Keep task</button>
+    <button class="btn btn-danger" type="button" id="confirmDel">Delete task</button>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>
