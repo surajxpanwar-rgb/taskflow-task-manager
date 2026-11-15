@@ -46,7 +46,7 @@ This project is developed as the Minor Project for the **InternsElite September 
 | JavaScript (ES6+) | Application functionality |
 | Local Storage | Persistent browser data storage |
 | Git & GitHub | Version control and source code hosting |
-| GitHub Pages | Application deployment |
+| Vercel | Application deployment |
 
 No backend, database, paid API or build process is required for the current version.
 
